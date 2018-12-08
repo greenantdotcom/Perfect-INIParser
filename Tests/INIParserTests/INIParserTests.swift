@@ -28,6 +28,9 @@ class INIParserTests: XCTestCase {
   freeVar1 = 1
   freeVar2 = 2;
   url = http://example.com/results?limit=10
+[profile awsalias]
+region = us-west-2
+
   [owner]
   name =  Rocky
   organization = PerfectlySoft
@@ -57,6 +60,8 @@ class INIParserTests: XCTestCase {
         XCTAssertEqual(ini.sections["database"]?["file"] ?? "", "\"中文.dat  \' \' \"")
         XCTAssertEqual(ini.sections["汉化"]?["变量1"] ?? "", "🇨🇳")
         XCTAssertEqual(ini.sections["汉化"]?["变量2"] ?? "", "加拿大。")
+        
+        XCTAssertEqual(ini.sections["profile awsalias"]?["region"] ?? "", "us-west-2")
       }catch (let err) {
         XCTFail(err.localizedDescription)
       }

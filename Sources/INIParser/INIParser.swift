@@ -65,9 +65,14 @@ public class INIParser {
     var variable: String? = nil
     for c in line {
       switch c {
-      case " ", "\t":
+      case " ":
+        if state == .SingleQuotation || state == .DoubleQuotation || state == .Title {
+            cache.append(c)
+        }
+        break
+      case "\t":
         if state == .SingleQuotation || state == .DoubleQuotation {
-          cache.append(c)
+            cache.append(c)
         }
         break
       case "[":
